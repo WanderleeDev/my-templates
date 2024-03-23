@@ -1,0 +1,2 @@
+Todas las vistas principales
+de la app que contendrán sus componentes principales

@@ -6,6 +6,17 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
+## Enable server-side rendering (optional)
+
+To add SSR to an existing project, use the Angular CLI ng add command.
+
+
+```sh
+ng add @angular/ssr
+```
+
+These commands create and update application code to enable SSR and adds extra files to the project structure.
+
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
