@@ -45,7 +45,8 @@
         "plugin:@angular-eslint/template/accessibility",
         "plugin:prettier/recommended"
       ],
-      "rules": {}
+      "rules": {
+      }
     }
   ]
 }
