@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { IMetaTagConfig, IMetaIndex } from '../../models/IMetadata.interface';
+import validateURL from '../../utils/validateUrl';
 
 @Injectable({
 	providedIn: 'root',
@@ -12,8 +13,7 @@ export class SeoService {
 	) {}
 
 	public setCanonicalURL(url: string): void {
-		if (!URL.canParse(url)) throw new Error('Invalid URL');
-
+		validateURL(url);
 		this._meta.updateTag({ name: 'canonical', content: url });
 	}
 
@@ -24,15 +24,15 @@ export class SeoService {
 		});
 	}
 
-	public setTitle(title: string): void {
-		this._title.setTitle(title);
-	}
-
 	public updateMetaTags({ metaTags, ogTags }: Partial<IMetaTagConfig>): void {
 		if (!metaTags && !ogTags) return;
 
 		this.setMetaTags(metaTags);
 		this.setMetaTags(ogTags);
+	}
+
+	public setTitle(title: string): void {
+		this._title.setTitle(title);
 	}
 
 	private setMetaTags(objectTags: Partial<IMetaIndex | undefined>): void {

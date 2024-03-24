@@ -26,10 +26,9 @@ export default class HomeComponent implements OnInit {
 	private readonly _ogTags: Partial<IOpenGraph> = {
 		'og:title': 'Titulo de la página',
 		'og:description': 'Descripción de la página',
-		'og:type': 'website', // El tipo de contenido.
+		'og:type': 'El tipo de contenido ejemplo: website',
 		'og:site_name': 'Url de la página',
-		'og:image':
-			'https://www.dropbox.com/scl/fi/8afgokhtr6a97yg9jhyyy/mc-pixel-screen.webp?rlkey=gevljhx3imdt7zem5i05djkow&raw=1', // La URL de la imagen que quieres que se muestre en la vista previa
+		'og:image': 'URL de la imagen que se mostrara en la vista previa',
 	};
 
 	ngOnInit(): void {
