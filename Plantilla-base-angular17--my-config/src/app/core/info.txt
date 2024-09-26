@@ -1,1 +1,0 @@
-todo lo que NO genere interfaces en la app

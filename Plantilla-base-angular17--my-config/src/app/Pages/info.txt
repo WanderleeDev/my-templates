@@ -1,5 +1,0 @@
-Todas las vistas principales
-de la app que contendrán sus componentes principales
-Cada vista principal tiene su propio routing para haver mas legible el archivo de routing principal
-
-NotFoundComponent al ser una vista y a su vez no maneja otros se importa directamente (no maneja routing propio)

@@ -1,1 +1,0 @@
-Todo contenedor o wrapper base que pueda ser reutilizado a nivel paginas o componentes
