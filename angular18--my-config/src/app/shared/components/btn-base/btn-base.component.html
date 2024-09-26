@@ -1,0 +1,12 @@
+<button
+	class="disabled:cursor-not-allowed"
+	[type]="props().type || 'button'"
+	[class]="props().className"
+	[style]="props().style"
+	[disabled]="props().disabled"
+	[title]="props().ariaLabel"
+	[attr.aria-label]="props().ariaLabel"
+>
+	{{label()}}
+	<ng-content />
+</button>

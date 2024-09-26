@@ -6,9 +6,9 @@ import { Observable } from 'rxjs';
 	providedIn: 'root',
 })
 export class HttpService {
-	private readonly _http = inject(HttpClient);
+	#http = inject(HttpClient);
 
 	public getDAta<T>(url: string): Observable<T> {
-		return this._http.get<T>(url);
+		return this.#http.get<T>(url);
 	}
 }

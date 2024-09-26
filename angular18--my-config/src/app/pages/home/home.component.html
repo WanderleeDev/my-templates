@@ -1,3 +1,12 @@
-<h1 class="grid place-content-center text-4xl text-blue-400 min-h-[100dvh]">
-	Empty template
-</h1>
+<div class="grid place-content-center min-h-[100dvh] gap-4">
+	<h1 class="text-4xl text-blue-400">Empty template</h1>
+	<app-btn-base
+		(click)="onClick()"
+		label="Test toast"
+		[props]="{
+      className: 'text-black text-base border border-slate-400 py-2',
+      ariaLabel: 'view toast',
+    }"
+	/>
+	<app-control-error message="Ha ocurrido algo" />
+</div>

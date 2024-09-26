@@ -1,11 +1,16 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import { NgxSonnerToaster } from 'ngx-sonner';
 
 @Component({
 	selector: 'app-root',
 	standalone: true,
-	imports: [CommonModule, RouterOutlet],
-	template: '<router-outlet />',
+	imports: [RouterOutlet, NgxSonnerToaster],
+	template: `
+		<ng-container>
+			<router-outlet />
+			<ngx-sonner-toaster richColors="true" />
+		</ng-container>
+	`,
 })
 export class AppComponent {}
