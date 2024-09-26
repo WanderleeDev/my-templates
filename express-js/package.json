@@ -1,5 +1,5 @@
 {
-  "name": "express-template",
+  "name": "express-js",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,12 +10,13 @@
     "dev": "nodemon ./src/index.ts"
   },
   "keywords": [],
-  "author": "",
+  "author": "Wanderlee Max",
   "license": "ISC",
   "packageManager": "pnpm@9.8.0+sha512.8e4c3550fb500e808dbc30bb0ce4dd1eb614e30b1c55245f211591ec2cdf9c611cabd34e1364b42f564bd54b3945ed0f49d61d1bbf2ec9bd74b866fcdc723276",
   "dependencies": {
     "body-parser": "^1.20.3",
     "express": "^4.21.0",
+    "morgan": "^1.10.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
   },
