@@ -1,6 +1,5 @@
 from typing import Optional, Type, TypeVar, List, override, Dict, Any
-from sqlalchemy import delete
-from sqlalchemy.sql import select
+from sqlalchemy import select, update, delete
 from db.base_model import BaseModel
 from db.session import SessionDep
 from src.common.abstracts import AbstractRepository
@@ -15,7 +14,7 @@ class BaseRepository(AbstractRepository[T]):
     Base class for all repositories
     """
 
-    def __init__(self, session: SessionDep, model: Type[T]):
+    def __init__(self, session: SessionDep, model_class: Type[T]):
         """
         Initialize the repository with a session and a model
 
@@ -25,7 +24,7 @@ class BaseRepository(AbstractRepository[T]):
         """
 
         self.session = session
-        self.model = model
+        self.model_class = model_class
 
     @override
     async def create(self, entity: T) -> T:
@@ -46,20 +45,20 @@ class BaseRepository(AbstractRepository[T]):
         return entity
 
     @override
-    async def read(self, entity_id: int) -> Optional[T]:
+    async def read(self, entity_id: UUID) -> Optional[T]:
         """
         Read an entity by its ID
 
         Args:
-            entity_id (int): The ID of the entity to read
+            entity_id (UUID): The ID of the entity to read
 
         Returns:
             Optional[T]: The entity if found, otherwise None
         """
-        return await self.session.get(self.model, entity_id)
+        return await self.session.get(self.model_class, entity_id)
 
     @override
-    async def update(self, id: UUID, values: Dict[str, Any]) -> T:
+    async def update(self, id: UUID, values: Dict[str, Any]) -> bool:
         """
         Update an entity by its ID
 
@@ -68,25 +67,18 @@ class BaseRepository(AbstractRepository[T]):
             values (Dict[str, Any]): The values to update
 
         Returns:
-            T: The updated entity
+            bool: True if the entity was updated, otherwise False
         """
 
-        prev_entity = await self.read(id)
-
-        if not prev_entity:
-            raise HTTPException(status_code=404, detail="Entity not found")
-
-        for key, value in values.items():
-            if hasattr(prev_entity, key):
-                setattr(prev_entity, key, value)
-
+        statement = update(self.model_class).where(self.model_class.id == id).values(**values)
+        result = await self.session.execute(statement)
         await self.session.commit()
-        await self.session.refresh(prev_entity)
 
-        return prev_entity
+        return result.rowcount > 0
+
 
     @override
-    async def delete(self, entity_id: int) -> bool:
+    async def delete(self, entity_id: UUID) -> bool:
         """
         Delete an entity by its ID
 
@@ -96,15 +88,14 @@ class BaseRepository(AbstractRepository[T]):
         Returns:
             bool: True if the entity was deleted, otherwise False
         """
-
-        statement = delete(self.model).where(self.model.id, entity_id)
+        statement = delete(self.model_class).where(self.model_class.id == entity_id)
         result = await self.session.execute(statement)
         await self.session.commit()
 
         return result.rowcount > 0
 
     @override
-    async def read_list(self, skip: int = 0, limit: int = 10):
+    async def read_list(self, skip: int = 0, limit: int = 10) -> List[T]:
         """
         Get all entities
 
@@ -116,7 +107,7 @@ class BaseRepository(AbstractRepository[T]):
             List[T]: The list of entities
         """
 
-        statement = select(self.model).offset(skip).limit(limit)
+        statement = select(self.model_class).offset(skip).limit(limit)
         results = await self.session.scalars(statement)
 
         return results.all()

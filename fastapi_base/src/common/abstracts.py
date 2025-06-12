@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Generic, Optional, TypeVar, List
+from uuid import UUID
 
 from db.base_model import BaseModel
 
@@ -17,12 +18,12 @@ class AbstractRepository(ABC, Generic[T]):
         pass
 
     @abstractmethod
-    def read(self, entity_id: int) -> Optional[T]:
+    def read(self, entity_id: UUID) -> Optional[T]:
         """Read an entity by its ID"""
         pass
 
     @abstractmethod
-    def update(self, entity: T) -> T:
+    def update(self, entity: T) -> bool:
         """Update an entity"""
         pass
 
