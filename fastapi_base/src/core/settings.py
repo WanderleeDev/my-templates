@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     APP_VERSION: str
     APP_TITLE: str
     APP_DESCRIPTION: str
+    SENTRY_DNS: str
 
     model_config = SettingsConfigDict(
         env_file=".env", extra="ignore", str_strip_whitespace=True, str_min_length=1

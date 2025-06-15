@@ -1,3 +1,3 @@
-from .infraestructure.models import User
+from .infrastructure.router import user_router
 
-__all__ = ["User"]
+__all__ = ["user_router"]

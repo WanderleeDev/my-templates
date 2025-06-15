@@ -1,7 +1,7 @@
 from fastapi import APIRouter, status
 from src.modules.health_check.schema import HealthCheckResponse
 
-health_check_router = APIRouter()
+health_check_router = APIRouter(prefix="/health_check", tags=["Health Check"])
 
 
 @health_check_router.get(
